@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2OK - Guest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Guest Water Submission</h1>
+        <form id="guestForm">
+            <input type="text" id="location" placeholder="Enter your location" required><br>
+            <input type="text" id="waterQuality" placeholder="Describe water quality" required><br>
+            <input type="file" id="imageUpload" accept=\"image/*\" required><br>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="submitStatus"></p>
+    </div>
+
+    <script>
+        document.getElementById('guestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const location = document.getElementById('location').value;
+            const waterQuality = document.getElementById('waterQuality').value;
+            const imageUpload = document.getElementById('imageUpload').files[0];
+
+            if (location && waterQuality && imageUpload) {
+                let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+                submissions.push({
+                    location,
+                    waterQuality,
+                    imageName: imageUpload.name
+                });
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+                document.getElementById('submitStatus').innerText = 'Submission successful!';
+                document.getElementById('guestForm').reset();
+            } else {
+                document.getElementById('submitStatus').innerText = 'Please fill out all fields!';
+            }
+        });
+    </script>
+</body>
+</html>
