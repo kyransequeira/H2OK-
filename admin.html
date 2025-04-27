@@ -3,28 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H2OK - Admin Panel</title>
+    <title>H2OK - Admin</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="loginForm">
         <h1>Admin Login</h1>
-        <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">Login</button>
-        </form>
-        
-        <div id="adminPanel" style="display:none;">
-            <h2>Guest Data Submissions</h2>
-            <pre id="guestData"></pre>
-        </div>
+        <input type="text" id="adminUser" placeholder="Username" required><br>
+        <input type="password" id="adminPass" placeholder="Password" required><br>
+        <button onclick="login()">Login</button>
+        <p id="loginStatus"></p>
     </div>
 
-    <script src="admin.js"></script>
+    <div class="container" id="adminPanel" style="display:none;">
+        <h1>Guest Submissions</h1>
+        <div id="submissionsList"></div>
+    </div>
+
+    <script>
+        function login() {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (user === 'admin' && pass === 'password') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadSubmissions();
+            } else {
+                document.getElementById('loginStatus').innerText = 'Invalid credentials.';
+            }
+        }
+
+        function loadSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+            const submissionsList = document.getElementById('submissionsList');
+
+            if (submissions.length === 0) {
+                submissionsList.innerHTML = '<p>No submissions yet.</p>';
+            } else {
+                submissionsList.innerHTML = submissions.map(sub => `
+                    <div class="submission">
+                        <p><strong>Location:</strong> ${sub.location}</p>
+                        <p><strong>Water Quality:</strong> ${sub.waterQuality}</p>
+                        <p><strong>Image Uploaded:</strong> ${sub.imageName}</p>
+                        <hr>
+                    </div>
+                `).join('');
+            }
+        }
+    </script>
 </body>
 </html>
