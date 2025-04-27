@@ -3,28 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H2OK - Guest Submission</title>
+    <title>H2OK - Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Welcome to H2OK</h1>
-
-        <h2>Guest Submission Form</h2>
-        <form id="guestForm">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required>
-
-            <label for="waterQuality">Water Quality:</label>
-            <input type="text" id="waterQuality" name="waterQuality" required>
-
-            <label for="image">Upload Image (URL):</label>
-            <input type="text" id="image" name="image" required>
-
-            <button type="submit">Submit</button>
-        </form>
+        <div class="button-group">
+            <button onclick="location.href='guest.html'">I'm a Guest</button>
+            <button onclick="location.href='admin.html'">I'm Admin</button>
+        </div>
     </div>
-
-    <script src="app.js"></script>
 </body>
 </html>
