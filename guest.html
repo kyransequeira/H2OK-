@@ -11,47 +11,24 @@
     <div class="container">
         <h1>Guest Water Submission</h1>
         <form id="guestForm">
+            <!-- Input for location -->
             <input type="text" id="location" placeholder="Enter your location" required><br>
+            <!-- Input for water quality description -->
             <input type="text" id="waterQuality" placeholder="Describe water quality" required><br>
+            <!-- File upload for image -->
             <input type="file" id="imageUpload" accept="image/*" required><br>
+            <!-- Submit button -->
             <button type="submit">Submit</button>
         </form>
+        <!-- Display submission status -->
         <p id="submitStatus"></p>
     </div>
 
     <script>
-        // Event listener for the form submission
+        // Event listener for form submission
         document.getElementById('guestForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission behavior
+            e.preventDefault(); // Prevent default form submission
 
-            // Retrieve the form data
+            // Get form field values
             const location = document.getElementById('location').value;
-            const waterQuality = document.getElementById('waterQuality').value;
-            const imageUpload = document.getElementById('imageUpload').files[0];
-
-            // Check if all required fields are filled
-            if (location && waterQuality && imageUpload) {
-                // Retrieve existing submissions from localStorage
-                let submissions = JSON.parse(localStorage.getItem('submissions')) || [];
-
-                // Add the new submission data
-                submissions.push({
-                    location,
-                    waterQuality,
-                    imageName: imageUpload.name
-                });
-
-                // Store updated submissions back into localStorage
-                localStorage.setItem('submissions', JSON.stringify(submissions));
-
-                // Display success message and reset the form
-                document.getElementById('submitStatus').innerText = 'Submission successful!';
-                document.getElementById('guestForm').reset();
-            } else {
-                // Display error message if fields are not filled
-                document.getElementById('submitStatus').innerText = 'Please fill out all fields!';
-            }
-        });
-    </script>
-</body>
-</html>
+            const waterQuality = document.getElementById('water
