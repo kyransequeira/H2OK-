@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Admin login form -->
     <div class="container" id="loginForm">
         <h1>Admin Login</h1>
         <input type="text" id="adminUser" placeholder="Username" required><br>
@@ -15,32 +16,41 @@
         <p id="loginStatus"></p>
     </div>
 
+    <!-- Admin panel (hidden by default) -->
     <div class="container" id="adminPanel" style="display:none;">
         <h1>Guest Submissions</h1>
         <div id="submissionsList"></div>
     </div>
 
     <script>
+        // Function to handle login and check credentials
         function login() {
             const user = document.getElementById('adminUser').value;
             const pass = document.getElementById('adminPass').value;
 
+            // Check if credentials match (admin/password)
             if (user === 'admin' && pass === 'password') {
+                // Hide login form and show admin panel
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
-                loadSubmissions();
+                loadSubmissions(); // Load submissions once logged in
             } else {
+                // Display error message for invalid credentials
                 document.getElementById('loginStatus').innerText = 'Invalid credentials.';
             }
         }
 
+        // Function to load and display guest submissions
         function loadSubmissions() {
+            // Retrieve submissions from local storage (if any)
             const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
             const submissionsList = document.getElementById('submissionsList');
 
+            // Check if there are no submissions
             if (submissions.length === 0) {
                 submissionsList.innerHTML = '<p>No submissions yet.</p>';
             } else {
+                // Display each submission
                 submissionsList.innerHTML = submissions.map(sub => `
                     <div class="submission">
                         <p><strong>Location:</strong> ${sub.location}</p>
